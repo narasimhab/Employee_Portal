@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpLink | Expenses & Reimbursements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+
+        /* Navigation Hover Accessibility Bridge */
+        .nav-item {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: -10px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+            z-index: 100;
+            margin-top: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        /* Layout Components */
+        .glass-card {
+            background: white;
+            border-radius: 2rem;
+            border: 1px solid #eef2f6;
+            transition: all 0.3s ease;
+        }
+
+        .status-pill {
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .status-paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        input,
+        select,
+        textarea {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+        }
+
+        .upload-zone {
+            border: 2px dashed #e2e8f0;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-zone:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header
+        class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-gradient-to-r from-[#02145d] to-[#04228c] px-8 text-white shadow-lg">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="grid grid-cols-3 gap-1 bg-white/10 p-2 rounded-lg">
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                </div>
+                <span class="font-black tracking-tight text-lg">CorpLink</span>
+            </a>
+
+            <nav class="hidden xl:flex items-center gap-1">
+                <a href="index.html"
+                    class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10">Dashboard</a>
+
+                <div class="nav-item">
+                    <button
+                        class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10 flex items-center gap-2">People
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="directory.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Employee
+                            Directory</a>
+                        <a href="projects.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Projects</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button
+                        class="px-4 py-2 rounded-xl text-xs font-bold bg-white/15 text-white flex items-center gap-2">Management
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="performance.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Performance</a>
+                        <a href="expenses.html"
+                            class="block px-4 py-2 text-xs font-bold text-[#04228c] bg-blue-50 rounded-lg">Expenses</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden lg:flex items-center gap-3 mr-4 border-r border-white/20 pr-6">
+                <a href="#"
+                    class="text-[10px] font-extrabold text-blue-300 hover:text-white uppercase tracking-wider">Payroll
+                    Portal</a>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=12" class="h-10 w-10 rounded-xl border-2 border-white/20">
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto p-8">
+
+        <div class="mb-10">
+            <h1 class="text-3xl font-extrabold text-slate-800">Expense Management</h1>
+            <p class="text-sm text-slate-400 font-medium">Submit and track your professional reimbursements.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass-card p-8">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Pending Reimbursement
+                </p>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-black text-slate-800">$1,240.50</span>
+                    <span class="text-xs font-bold text-orange-500">3 Requests</span>
+                </div>
+            </div>
+            <div class="glass-card p-8">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Approved this Month</p>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-black text-slate-800">$850.00</span>
+                    <span class="text-xs font-bold text-emerald-500">Paid Oct 15</span>
+                </div>
+            </div>
+            <div class="glass-card p-8">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Annual Total</p>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-3xl font-black text-slate-800">$4,120.25</span>
+                    <span class="text-xs font-bold text-blue-500">FY 2024</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-1">
+                <div class="glass-card p-8 sticky top-28">
+                    <h3 class="font-black text-slate-800 mb-6">New Expense Claim</h3>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Expense
+                                Category</label>
+                            <select>
+                                <option>Travel & Transport</option>
+                                <option>Client Hospitality</option>
+                                <option>Software & Subscriptions</option>
+                                <option>Office Supplies</option>
+                                <option>Other Professional Expenses</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Date</label>
+                                <input type="date">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Amount
+                                    ($)</label>
+                                <input type="number" placeholder="0.00">
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-[10px] font-black text-slate-400 uppercase mb-2">Description</label>
+                            <input type="text" placeholder="e.g., Client lunch at The Bistro">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Receipt
+                                Upload</label>
+                            <div class="upload-zone">
+                                <i class="fa-solid fa-cloud-arrow-up text-slate-300 text-2xl mb-2"></i>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase">Drop PDF or Image here</p>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full py-4 bg-[#04228c] text-white rounded-2xl text-xs font-black uppercase tracking-wider shadow-lg shadow-blue-900/20">Submit
+                            Claim</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="glass-card p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="font-black text-slate-800">Recent Claims</h3>
+                        <button class="text-xs font-bold text-blue-600 hover:underline">View All History</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50">
+                                    <th class="pb-4">Details</th>
+                                    <th class="pb-4">Category</th>
+                                    <th class="pb-4">Amount</th>
+                                    <th class="pb-4">Status</th>
+                                    <th class="pb-4 text-right">Receipt</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50">
+                                <tr>
+                                    <td class="py-6">
+                                        <p class="text-sm font-black text-slate-800">Flights to London (Q4 Summit)</p>
+                                        <p class="text-[10px] text-slate-400 font-bold">Oct 20, 2024</p>
+                                    </td>
+                                    <td class="py-6"><span class="text-xs font-bold text-slate-600">Travel</span></td>
+                                    <td class="py-6 font-black text-slate-800">$840.00</td>
+                                    <td class="py-6"><span class="status-pill status-pending">Pending</span></td>
+                                    <td class="py-6 text-right"><button class="text-slate-400 hover:text-blue-600"><i
+                                                class="fa-solid fa-file-invoice"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-6">
+                                        <p class="text-sm font-black text-slate-800">Adobe CC Subscription</p>
+                                        <p class="text-[10px] text-slate-400 font-bold">Oct 12, 2024</p>
+                                    </td>
+                                    <td class="py-6"><span class="text-xs font-bold text-slate-600">Software</span></td>
+                                    <td class="py-6 font-black text-slate-800">$52.99</td>
+                                    <td class="py-6"><span class="status-pill status-paid">Paid</span></td>
+                                    <td class="py-6 text-right"><button class="text-slate-400 hover:text-blue-600"><i
+                                                class="fa-solid fa-file-invoice"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-6">
+                                        <p class="text-sm font-black text-slate-800">Client Dinner - Blue Fin</p>
+                                        <p class="text-[10px] text-slate-400 font-bold">Oct 05, 2024</p>
+                                    </td>
+                                    <td class="py-6"><span class="text-xs font-bold text-slate-600">Hospitality</span>
+                                    </td>
+                                    <td class="py-6 font-black text-slate-800">$215.40</td>
+                                    <td class="py-6"><span class="status-pill status-paid">Paid</span></td>
+                                    <td class="py-6 text-right"><button class="text-slate-400 hover:text-blue-600"><i
+                                                class="fa-solid fa-file-invoice"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-blue-50 rounded-2xl border border-blue-100 flex gap-4">
+                    <i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
+                    <div>
+                        <p class="text-xs font-black text-blue-900 uppercase mb-1">Expense Policy Reminder</p>
+                        <p class="text-xs text-blue-700 leading-relaxed">Claims submitted before the 25th of each month
+                            will be processed in the current payroll cycle. Ensure all receipts are clear and legible to
+                            avoid processing delays.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+
+</html>

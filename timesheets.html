@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpLink | Timesheet Entry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+
+        /* Navigation Hover Accessibility Bridge */
+        .nav-item {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: -10px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+            z-index: 100;
+            margin-top: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        /* Timesheet Components */
+        .glass-card {
+            background: white;
+            border-radius: 2rem;
+            border: 1px solid #eef2f6;
+            transition: all 0.3s ease;
+        }
+
+        .day-pill {
+            flex: 1;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            border-radius: 1.25rem;
+            border: 1px solid #f1f5f9;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .day-pill.active {
+            background: #04228c;
+            color: white;
+            border-color: #04228c;
+        }
+
+        .day-pill:hover:not(.active) {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        input,
+        select,
+        textarea {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header
+        class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-gradient-to-r from-[#02145d] to-[#04228c] px-8 text-white shadow-lg">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="grid grid-cols-3 gap-1 bg-white/10 p-2 rounded-lg">
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                </div>
+                <span class="font-black tracking-tight text-lg">CorpLink</span>
+            </a>
+
+            <nav class="hidden xl:flex items-center gap-1">
+                <a href="index.html"
+                    class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10">Dashboard</a>
+
+                <div class="nav-item">
+                    <button
+                        class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10 flex items-center gap-2">People
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="directory.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Employee
+                            Directory</a>
+                        <a href="projects.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Projects</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button
+                        class="px-4 py-2 rounded-xl text-xs font-bold bg-white/15 text-white flex items-center gap-2">Management
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="performance.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Performance</a>
+                        <a href="timesheets.html"
+                            class="block px-4 py-2 text-xs font-bold text-[#04228c] bg-blue-50 rounded-lg">Timesheets</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden lg:flex items-center gap-3 mr-4 border-r border-white/20 pr-6">
+                <span class="text-[10px] font-extrabold text-blue-300 uppercase tracking-wider">Week 42 • Oct
+                    2026</span>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=12" class="h-10 w-10 rounded-xl border-2 border-white/20">
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto p-8">
+
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-800">Timesheet Entry</h1>
+                <p class="text-sm text-slate-400 font-medium">Log your daily hours and project allocations.</p>
+            </div>
+            <div class="flex gap-3 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm">
+                <button class="px-4 py-2 text-slate-400 hover:text-slate-600"><i
+                        class="fa-solid fa-chevron-left"></i></button>
+                <span class="px-4 py-2 text-xs font-black text-slate-700">Oct 19 - Oct 25, 2026</span>
+                <button class="px-4 py-2 text-slate-400 hover:text-slate-600"><i
+                        class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <div class="glass-card p-6 flex gap-3">
+                    <div class="day-pill">
+                        <p class="text-[9px] font-black uppercase opacity-60">Mon</p>
+                        <p class="text-sm font-black">19</p>
+                    </div>
+                    <div class="day-pill">
+                        <p class="text-[9px] font-black uppercase opacity-60">Tue</p>
+                        <p class="text-sm font-black">20</p>
+                    </div>
+                    <div class="day-pill active">
+                        <p class="text-[9px] font-black uppercase opacity-60">Wed</p>
+                        <p class="text-sm font-black">21</p>
+                    </div>
+                    <div class="day-pill">
+                        <p class="text-[9px] font-black uppercase opacity-60">Thu</p>
+                        <p class="text-sm font-black">22</p>
+                    </div>
+                    <div class="day-pill">
+                        <p class="text-[9px] font-black uppercase opacity-60">Fri</p>
+                        <p class="text-sm font-black">23</p>
+                    </div>
+                    <div class="day-pill bg-slate-50 border-none opacity-40 cursor-not-allowed">
+                        <p class="text-[9px] font-black uppercase">Sat</p>
+                        <p class="text-sm font-black">24</p>
+                    </div>
+                    <div class="day-pill bg-slate-50 border-none opacity-40 cursor-not-allowed">
+                        <p class="text-[9px] font-black uppercase">Sun</p>
+                        <p class="text-sm font-black">25</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="font-black text-slate-800">Add Time Entry <span
+                                class="text-blue-600 ml-2 text-sm font-bold">Wednesday, Oct 21</span></h3>
+                    </div>
+
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Project /
+                                    Account</label>
+                                <select>
+                                    <option>Apollo Modernization (Internal)</option>
+                                    <option>Project Phoenix (Client: Zenith Corp)</option>
+                                    <option>System Maintenance</option>
+                                    <option>General Admin / Meetings</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Task
+                                    Category</label>
+                                <select>
+                                    <option>Development</option>
+                                    <option>Design & Prototyping</option>
+                                    <option>Quality Assurance</option>
+                                    <option>Planning & Strategy</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Duration
+                                    (Hours)</label>
+                                <input type="number" step="0.5" placeholder="0.0">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label
+                                    class="block text-[10px] font-black text-slate-400 uppercase mb-2">Description</label>
+                                <input type="text" placeholder="Summary of work performed...">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-3 pt-4">
+                            <button type="button"
+                                class="px-6 py-3 text-xs font-black text-slate-400 uppercase">Clear</button>
+                            <button type="submit"
+                                class="px-8 py-3 bg-[#04228c] text-white rounded-2xl text-xs font-black uppercase shadow-lg shadow-blue-900/20">Save
+                                Entry</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <aside class="space-y-8">
+                <div
+                    class="glass-card p-8 bg-gradient-to-br from-[#02145d] to-[#04228c] text-white border-none shadow-xl">
+                    <h4 class="text-[10px] font-black uppercase opacity-60 tracking-widest mb-6">Weekly Progress</h4>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-bold">Total Hours</span>
+                        <span class="text-2xl font-black">28.5 / 40</span>
+                    </div>
+                    <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden mb-8">
+                        <div class="bg-blue-400 h-full" style="width: 71%"></div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-[10px] font-black uppercase">
+                            <span class="opacity-60">Mon</span>
+                            <span>8.0h</span>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-black uppercase">
+                            <span class="opacity-60">Tue</span>
+                            <span>7.5h</span>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-black uppercase">
+                            <span class="opacity-60 text-blue-300">Wed (Current)</span>
+                            <span class="text-blue-300">4.5h</span>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-black uppercase">
+                            <span class="opacity-60">Thu</span>
+                            <span>0.0h</span>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-black uppercase">
+                            <span class="opacity-60">Fri</span>
+                            <span>0.0h</span>
+                        </div>
+                    </div>
+
+                    <button
+                        class="w-full mt-10 py-4 bg-white text-blue-900 rounded-2xl text-xs font-black uppercase tracking-wider hover:bg-blue-50 transition-all">Submit
+                        for Approval</button>
+                </div>
+
+                <div class="glass-card p-6">
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Submission Status
+                    </h4>
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-orange-400"></div>
+                        <p class="text-xs font-bold text-slate-600">Draft - Not yet submitted</p>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+</body>
+
+</html>

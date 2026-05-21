@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpLink | Certifications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        body { background-color: #f0f4f8; font-family: 'Inter', sans-serif; color: #1e293b; }
+
+        /* Navigation Hover Accessibility Bridge */
+        .nav-item { position: relative; padding-bottom: 10px; margin-bottom: -10px; }
+        .dropdown { 
+            display: none; position: absolute; top: 100%; left: 0; width: 220px; 
+            background: white; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); 
+            padding: 0.5rem; z-index: 100; margin-top: 0.5rem; border: 1px solid #e2e8f0;
+        }
+        .nav-item:hover .dropdown { display: block; }
+        
+        /* Certification Card Components */
+        .cert-card { 
+            background: white; border-radius: 2rem; padding: 1.5rem; 
+            border: 1px solid #eef2f6; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cert-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); }
+        
+        .badge-verified { background: #dcfce7; color: #166534; }
+        .badge-expired { background: #fee2e2; color: #991b1b; }
+        .badge-pending { background: #fef9c3; color: #854d0e; }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-gradient-to-r from-[#02145d] to-[#04228c] px-8 text-white shadow-lg">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="grid grid-cols-3 gap-1 bg-white/10 p-2 rounded-lg">
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div><div class="h-1.5 w-1.5 rounded-full bg-white"></div><div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                </div>
+                <span class="font-black tracking-tight text-lg">CorpLink</span>
+            </a>
+            
+            <nav class="hidden xl:flex items-center gap-1">
+                <a href="index.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10">Dashboard</a>
+                
+                <div class="nav-item">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-white/15 text-white flex items-center gap-2">People <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="directory.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Employee Directory</a>
+                        <a href="projects.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Projects</a>
+                        <a href="certifications.html" class="block px-4 py-2 text-xs font-bold text-[#04228c] bg-blue-50 rounded-lg">Certifications</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10 flex items-center gap-2">Management <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="performance.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Performance</a>
+                        <a href="leaves.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Leaves</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden lg:flex items-center gap-3 mr-4 border-r border-white/20 pr-6">
+                <a href="#" class="text-[10px] font-extrabold text-blue-300 hover:text-white uppercase tracking-wider">L&D Portal</a>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=12" class="h-10 w-10 rounded-xl border-2 border-white/20">
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto p-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-800">Certifications</h1>
+                <p class="text-sm text-slate-400 font-medium">Manage your professional credentials and learning path</p>
+            </div>
+            <button class="px-6 py-3 bg-[#04228c] text-white rounded-2xl font-black text-xs shadow-lg shadow-blue-900/20">
+                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Add New Certification
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <aside class="space-y-6">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100">
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Your Progress</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-end">
+                            <span class="text-xs font-bold text-slate-600">Active Certs</span>
+                            <span class="text-xl font-black text-blue-600">08</span>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-xs font-bold text-slate-600">Points Earned</span>
+                            <span class="text-xl font-black text-emerald-500">1,200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100">
+                    <h4 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Categories</h4>
+                    <div class="space-y-2">
+                        <button class="w-full text-left px-4 py-2 rounded-xl bg-blue-50 text-blue-600 text-xs font-black">All Types</button>
+                        <button class="w-full text-left px-4 py-2 rounded-xl text-slate-500 hover:bg-slate-50 text-xs font-bold">Technical</button>
+                        <button class="w-full text-left px-4 py-2 rounded-xl text-slate-500 hover:bg-slate-50 text-xs font-bold">Leadership</button>
+                        <button class="w-full text-left px-4 py-2 rounded-xl text-slate-500 hover:bg-slate-50 text-xs font-bold">Compliance</button>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    
+                    <div class="cert-card">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fa-brands fa-aws"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-lg text-[9px] font-black uppercase badge-verified">Verified</span>
+                        </div>
+                        <h3 class="font-black text-slate-800 mb-1">AWS Solutions Architect</h3>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mb-4">Amazon Web Services</p>
+                        <div class="pt-4 border-t border-slate-50 flex justify-between items-center">
+                            <p class="text-[10px] font-bold text-slate-400">Issued: Jan 2024</p>
+                            <button class="text-blue-600 font-black text-[10px] uppercase hover:underline">View File</button>
+                        </div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-lg text-[9px] font-black uppercase badge-expired">Expired</span>
+                        </div>
+                        <h3 class="font-black text-slate-800 mb-1">Cyber Security Pro</h3>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mb-4">CompTIA</p>
+                        <div class="pt-4 border-t border-slate-50 flex justify-between items-center">
+                            <p class="text-[10px] font-bold text-red-400">Expired: Oct 2024</p>
+                            <button class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase">Renew Now</button>
+                        </div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-people-roof"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-lg text-[9px] font-black uppercase badge-pending">Under Review</span>
+                        </div>
+                        <h3 class="font-black text-slate-800 mb-1">Agile Project Management</h3>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mb-4">Scrum Alliance</p>
+                        <div class="pt-4 border-t border-slate-50 flex justify-between items-center">
+                            <p class="text-[10px] font-bold text-slate-400">Uploaded: 2 days ago</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-12 bg-white rounded-[2.5rem] p-8 border border-slate-100">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h2 class="text-xl font-black text-slate-800">Recommended for You</h2>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Based on your career path</p>
+                        </div>
+                        <button class="text-blue-600 text-xs font-black uppercase">Explore All Courses</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition-all cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                                    <i class="fa-solid fa-microchip text-slate-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-black text-slate-800">Advanced Machine Learning Foundations</p>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">6 Modules • 12 Hours</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl hover:bg-slate-100 transition-all cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                                    <i class="fa-solid fa-comments text-slate-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-black text-slate-800">Executive Communication Masterclass</p>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">4 Modules • 8 Hours</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

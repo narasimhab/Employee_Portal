@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpLink | Organization Chart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        body { background-color: #f0f4f8; font-family: 'Inter', sans-serif; color: #1e293b; overflow-x: hidden; }
+
+        /* Navigation Hover Accessibility Bridge */
+        .nav-item { position: relative; padding-bottom: 10px; margin-bottom: -10px; }
+        .dropdown { 
+            display: none; position: absolute; top: 100%; left: 0; width: 220px; 
+            background: white; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); 
+            padding: 0.5rem; z-index: 100; margin-top: 0.5rem; border: 1px solid #e2e8f0;
+        }
+        .nav-item:hover .dropdown { display: block; }
+        
+        /* Org Chart Tree Logic */
+        .tree-container { padding: 40px; display: flex; justify-content: center; min-width: fit-content; }
+        .tree ul { padding-top: 20px; position: relative; transition: all 0.5s; display: flex; justify-content: center; }
+        .tree li { float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 10px 0 10px; transition: all 0.5s; }
+
+        /* Connecting Lines */
+        .tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid #cbd5e1; width: 50%; height: 20px; }
+        .tree li::after { right: auto; left: 50%; border-left: 2px solid #cbd5e1; }
+        .tree li:only-child::after, .tree li:only-child::before { display: none; }
+        .tree li:only-child { padding-top: 0; }
+        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+        .tree li:last-child::before { border-right: 2px solid #cbd5e1; border-radius: 0 5px 0 0; }
+        .tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid #cbd5e1; width: 0; height: 20px; }
+
+        /* Node Styling */
+        .node {
+            background: white; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 1.5rem;
+            display: inline-block; width: 240px; position: relative; transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .node:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-color: #3b82f6; }
+        .node img { width: 48px; height: 48px; border-radius: 1rem; object-cover: cover; margin-bottom: 0.75rem; }
+        
+        .role-tag { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 99px; margin-bottom: 4px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-gradient-to-r from-[#02145d] to-[#04228c] px-8 text-white shadow-lg">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="grid grid-cols-3 gap-1 bg-white/10 p-2 rounded-lg">
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div><div class="h-1.5 w-1.5 rounded-full bg-white"></div><div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                </div>
+                <span class="font-black tracking-tight text-lg">CorpLink</span>
+            </a>
+            
+            <nav class="hidden xl:flex items-center gap-1">
+                <a href="index.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10">Dashboard</a>
+                
+                <div class="nav-item">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-white/15 text-white flex items-center gap-2">People <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="directory.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Employee Directory</a>
+                        <a href="orgchart.html" class="block px-4 py-2 text-xs font-bold text-[#04228c] bg-blue-50 rounded-lg">Org Chart</a>
+                        <a href="announcements.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Announcements</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10 flex items-center gap-2">Management <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="performance.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Performance</a>
+                        <a href="leaves.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Leaves</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden lg:flex items-center gap-3 mr-4 border-r border-white/20 pr-6">
+                <a href="#" class="text-[10px] font-extrabold text-blue-300 hover:text-white uppercase tracking-wider">Payroll</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden md:block">
+                    <p class="text-[10px] font-black text-white">Mark Johnson</p>
+                    <p class="text-[8px] text-white/50 uppercase tracking-widest">Manager</p>
+                </div>
+                <img src="https://i.pravatar.cc/100?img=12" class="h-10 w-10 rounded-xl border-2 border-white/20">
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-[1440px] mx-auto px-8 pt-8">
+        <div class="flex justify-between items-center bg-white p-4 rounded-3xl border border-slate-100 shadow-sm">
+            <div>
+                <h1 class="text-xl font-black text-slate-800">Organization Chart</h1>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Global Hierarchy</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="px-4 py-2 bg-slate-50 text-slate-600 text-xs font-bold rounded-xl hover:bg-slate-100"><i class="fa-solid fa-magnifying-glass-plus mr-2"></i> Zoom</button>
+                <button class="px-4 py-2 bg-slate-50 text-slate-600 text-xs font-bold rounded-xl hover:bg-slate-100"><i class="fa-solid fa-download mr-2"></i> Export</button>
+                <button class="px-4 py-2 bg-[#04228c] text-white text-xs font-bold rounded-xl"><i class="fa-solid fa-filter mr-2"></i> Filter View</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-auto">
+        <div class="tree-container">
+            <div class="tree">
+                <ul>
+                    <li>
+                        <div class="node">
+                            <span class="role-tag bg-slate-900 text-white">Executive</span>
+                            <img src="https://i.pravatar.cc/150?img=68" class="mx-auto" alt="CEO">
+                            <h4 class="text-sm font-black">Jonathan Sterling</h4>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Chief Executive Officer</p>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="node">
+                                    <span class="role-tag bg-blue-100 text-blue-600">Department Head</span>
+                                    <img src="https://i.pravatar.cc/150?img=11" class="mx-auto" alt="CTO">
+                                    <h4 class="text-sm font-black">Alex Rivera</h4>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Chief Tech Officer</p>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="node">
+                                            <span class="role-tag bg-blue-50 text-blue-400">Team Lead</span>
+                                            <h4 class="text-sm font-black">Sarah Jenkins</h4>
+                                            <p class="text-[10px] text-slate-400 font-bold">Frontend Lead</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="node">
+                                            <span class="role-tag bg-blue-50 text-blue-400">Team Lead</span>
+                                            <h4 class="text-sm font-black">David Miller</h4>
+                                            <p class="text-[10px] text-slate-400 font-bold">Backend Lead</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="node">
+                                    <span class="role-tag bg-purple-100 text-purple-600">Department Head</span>
+                                    <img src="https://i.pravatar.cc/150?img=32" class="mx-auto" alt="CMO">
+                                    <h4 class="text-sm font-black">Elena Rodriguez</h4>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Marketing Director</p>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="node">
+                                            <span class="role-tag bg-purple-50 text-purple-400">Team Lead</span>
+                                            <h4 class="text-sm font-black">Mark Johnson</h4>
+                                            <p class="text-[10px] text-slate-400 font-bold">Digital Manager</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="node">
+                                    <span class="role-tag bg-emerald-100 text-emerald-600">Department Head</span>
+                                    <img src="https://i.pravatar.cc/150?img=44" class="mx-auto" alt="COO">
+                                    <h4 class="text-sm font-black">Maria Gonzalez</h4>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Chief Ops Officer</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

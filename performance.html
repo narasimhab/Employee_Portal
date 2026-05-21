@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpLink | Performance Reviews</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+
+        /* Navigation Hover Accessibility Bridge */
+        .nav-item {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: -10px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem;
+            z-index: 100;
+            margin-top: 0.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        /* Stats Card Styles */
+        .glass-card {
+            background: white;
+            border-radius: 2rem;
+            border: 1px solid #eef2f6;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-4px);
+        }
+
+        .kpi-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#3b82f6 var(--p), #f1f5f9 0);
+            display: flex;
+            items-center;
+            justify-center;
+        }
+
+        .kpi-circle::before {
+            content: "";
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            background: white;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header
+        class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-gradient-to-r from-[#02145d] to-[#04228c] px-8 text-white shadow-lg">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="grid grid-cols-3 gap-1 bg-white/10 p-2 rounded-lg">
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                </div>
+                <span class="font-black tracking-tight text-lg">CorpLink</span>
+            </a>
+
+            <nav class="hidden xl:flex items-center gap-1">
+                <a href="index.html"
+                    class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10">Dashboard</a>
+
+                <div class="nav-item">
+                    <button
+                        class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10 flex items-center gap-2">People
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="directory.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Employee
+                            Directory</a>
+                        <a href="orgchart.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Org
+                            Chart</a>
+                        <a href="announcements.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Announcements</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button
+                        class="px-4 py-2 rounded-xl text-xs font-bold bg-white/15 text-white flex items-center gap-2">Management
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="performance.html"
+                            class="block px-4 py-2 text-xs font-bold text-[#04228c] bg-blue-50 rounded-lg">Performance</a>
+                        <a href="leaves.html"
+                            class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Leaves</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden lg:flex items-center gap-3 mr-4 border-r border-white/20 pr-6">
+                <a href="#"
+                    class="text-[10px] font-extrabold text-blue-300 hover:text-white uppercase tracking-wider">Help
+                    Center</a>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=12" class="h-10 w-10 rounded-xl border-2 border-white/20">
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto p-8">
+
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-800">Performance Overview</h1>
+                <p class="text-sm text-slate-400 font-medium">Review Cycle: Q4 2024 (In Progress)</p>
+            </div>
+            <div class="flex gap-3">
+                <button
+                    class="px-6 py-3 bg-white border border-slate-200 rounded-2xl text-xs font-black text-slate-600 hover:bg-slate-50">Download
+                    Full Report</button>
+                <button
+                    class="px-6 py-3 bg-[#04228c] rounded-2xl text-xs font-black text-white shadow-lg shadow-blue-900/20">Schedule
+                    Check-in</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 glass-card p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="font-black text-slate-800">Skill Competency Map</h3>
+                    <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-lg uppercase">Self
+                        vs. Manager</span>
+                </div>
+                <div class="h-[400px]">
+                    <canvas id="skillRadar"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-card p-8">
+                <h3 class="font-black text-slate-800 mb-8">Active KPIs</h3>
+                <div class="space-y-8">
+                    <div class="flex items-center gap-6">
+                        <div class="kpi-circle shrink-0" style="--p: 85%">
+                            <span class="relative text-xs font-black text-slate-800">85%</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-black text-slate-800">Project Delivery</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">On track for Q4 goals</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="kpi-circle shrink-0"
+                            style="--p: 62%; background: conic-gradient(#8b5cf6 var(--p), #f1f5f9 0);">
+                            <span class="relative text-xs font-black text-slate-800">62%</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-black text-slate-800">Client Retention</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Needs minor focus</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="kpi-circle shrink-0"
+                            style="--p: 92%; background: conic-gradient(#10b981 var(--p), #f1f5f9 0);">
+                            <span class="relative text-xs font-black text-slate-800">92%</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-black text-slate-800">Technical Debt</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Exceeding expectations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 glass-card p-8">
+                <h3 class="font-black text-slate-800 mb-6">Review Timeline</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr
+                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50">
+                                <th class="pb-4">Cycle</th>
+                                <th class="pb-4">Reviewer</th>
+                                <th class="pb-4">Status</th>
+                                <th class="pb-4">Final Grade</th>
+                                <th class="pb-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr class="text-sm">
+                                <td class="py-6 font-bold text-slate-800">Annual Review 2023</td>
+                                <td class="py-6 font-medium text-slate-500">Alex Rivera (CTO)</td>
+                                <td class="py-6"><span
+                                        class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-lg uppercase">Completed</span>
+                                </td>
+                                <td class="py-6 font-black text-slate-800">Exceeds (4.8/5.0)</td>
+                                <td class="py-6 text-right"><button class="text-blue-600 font-bold">View PDF</button>
+                                </td>
+                            </tr>
+                            <tr class="text-sm">
+                                <td class="py-6 font-bold text-slate-800">Mid-Year Check-in 2024</td>
+                                <td class="py-6 font-medium text-slate-500">Alex Rivera (CTO)</td>
+                                <td class="py-6"><span
+                                        class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-lg uppercase">Completed</span>
+                                </td>
+                                <td class="py-6 font-black text-slate-800">Meets (4.2/5.0)</td>
+                                <td class="py-6 text-right"><button class="text-blue-600 font-bold">View PDF</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('skillRadar');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Leadership', 'Technical Skill', 'Communication', 'Innovation', 'Ownership', 'Teamwork'],
+                datasets: [
+                    {
+                        label: 'Self Assessment',
+                        data: [85, 95, 75, 90, 88, 82],
+                        fill: true,
+                        backgroundColor: 'rgba(59, 130, 246, 0.15)',
+                        borderColor: '#3b82f6',
+                        pointBackgroundColor: '#3b82f6',
+                    },
+                    {
+                        label: 'Manager Review',
+                        data: [80, 92, 85, 85, 90, 88],
+                        fill: true,
+                        backgroundColor: 'rgba(139, 92, 246, 0.15)',
+                        borderColor: '#8b5cf6',
+                        pointBackgroundColor: '#8b5cf6',
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom', labels: { font: { weight: 'bold', family: 'Inter' } } }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

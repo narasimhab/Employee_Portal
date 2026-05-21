@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpLink | Employee Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        body { background-color: #f0f4f8; font-family: 'Inter', sans-serif; color: #1e293b; }
+
+        /* Navigation Hover Accessibility Bridge */
+        .nav-item { position: relative; padding-bottom: 10px; margin-bottom: -10px; }
+        .dropdown { 
+            display: none; position: absolute; top: 100%; left: 0; width: 220px; 
+            background: white; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); 
+            padding: 0.5rem; z-index: 100; margin-top: 0.5rem; border: 1px solid #e2e8f0;
+        }
+        .nav-item:hover .dropdown { display: block; }
+        
+        /* Layout Components */
+        .directory-sidebar { width: 280px; position: sticky; top: 100px; height: calc(100vh - 120px); }
+        .employee-card { 
+            background: white; border-radius: 2rem; padding: 1.5rem; 
+            border: 1px solid #eef2f6; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .employee-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); border-color: #dbeafe; }
+        
+        .status-indicator { width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; position: absolute; bottom: 2px; right: 2px; }
+        .status-online { background-color: #22c55e; }
+        .status-away { background-color: #f59e0b; }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 flex h-[72px] items-center justify-between bg-gradient-to-r from-[#02145d] to-[#04228c] px-8 text-white shadow-lg">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="grid grid-cols-3 gap-1 bg-white/10 p-2 rounded-lg">
+                    <div class="h-1.5 w-1.5 rounded-full bg-white"></div><div class="h-1.5 w-1.5 rounded-full bg-white"></div><div class="h-1.5 w-1.5 rounded-full bg-white"></div>
+                </div>
+                <span class="font-black tracking-tight text-lg">CorpLink</span>
+            </a>
+            
+            <nav class="hidden xl:flex items-center gap-1">
+                <a href="index.html" class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10">Dashboard</a>
+                
+                <div class="nav-item">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold bg-white/15 text-white flex items-center gap-2">People <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="directory.html" class="block px-4 py-2 text-xs font-bold text-[#04228c] bg-blue-50 rounded-lg">Employee Directory</a>
+                        <a href="orgchart.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Org Chart</a>
+                        <a href="announcements.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Announcements</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="px-4 py-2 rounded-xl text-xs font-bold text-white/80 hover:bg-white/10 flex items-center gap-2">Management <i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    <div class="dropdown">
+                        <a href="performance.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Performance</a>
+                        <a href="leaves.html" class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 rounded-lg">Leaves</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="hidden lg:flex items-center gap-3 mr-4 border-r border-white/20 pr-6">
+                <a href="#" class="text-[10px] font-extrabold text-blue-300 hover:text-white uppercase tracking-wider">Payroll</a>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=12" class="h-10 w-10 rounded-xl border-2 border-white/20">
+        </div>
+    </header>
+
+    <main class="max-w-[1440px] mx-auto p-8 flex gap-8">
+        
+        <aside class="directory-sidebar hidden lg:block">
+            <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 h-full overflow-y-auto">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Departments</h3>
+                <nav class="space-y-1">
+                    <button class="w-full flex justify-between items-center px-4 py-3 bg-blue-50 text-blue-600 rounded-2xl text-xs font-black">
+                        <span>All Employees</span><span class="bg-blue-600 text-white px-2 py-0.5 rounded-md text-[10px]">245</span>
+                    </button>
+                    <button class="w-full flex justify-between items-center px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl text-xs font-bold">
+                        <span>Marketing</span><span class="text-slate-400 text-[10px]">42</span>
+                    </button>
+                    <button class="w-full flex justify-between items-center px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl text-xs font-bold">
+                        <span>Engineering</span><span class="text-slate-400 text-[10px]">112</span>
+                    </button>
+                    <button class="w-full flex justify-between items-center px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl text-xs font-bold">
+                        <span>Design</span><span class="text-slate-400 text-[10px]">18</span>
+                    </button>
+                    <button class="w-full flex justify-between items-center px-4 py-3 text-slate-600 hover:bg-slate-50 rounded-2xl text-xs font-bold">
+                        <span>Human Resources</span><span class="text-slate-400 text-[10px]">12</span>
+                    </button>
+                </nav>
+
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mt-10 mb-6">Location</h3>
+                <div class="space-y-3 px-2">
+                    <label class="flex items-center gap-3 text-xs font-bold text-slate-600 cursor-pointer">
+                        <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"> New York, US
+                    </label>
+                    <label class="flex items-center gap-3 text-xs font-bold text-slate-600 cursor-pointer">
+                        <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"> London, UK
+                    </label>
+                    <label class="flex items-center gap-3 text-xs font-bold text-slate-600 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"> Remote
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <section class="flex-1">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-slate-800">Employee Directory</h1>
+                    <p class="text-sm text-slate-400 font-medium">Manage and connect with your global team</p>
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <div class="relative flex-1 md:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" placeholder="Search by name, role or email..." class="w-full pl-11 pr-6 py-3 bg-white border-none rounded-2xl shadow-sm text-sm focus:ring-2 focus:ring-blue-500 transition-all">
+                    </div>
+                    <button class="p-3 bg-white rounded-2xl shadow-sm border border-slate-100 text-slate-400 hover:text-blue-600"><i class="fa-solid fa-filter"></i></button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                
+                <div class="employee-card">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="relative">
+                            <img src="https://i.pravatar.cc/150?img=32" class="w-20 h-20 rounded-3xl object-cover grayscale-[0.2]">
+                            <div class="status-indicator status-online"></div>
+                        </div>
+                        <button class="text-slate-300 hover:text-slate-600 transition-colors"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-lg font-black text-slate-800">Sarah Jenkins</h4>
+                        <p class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-2">Lead UI/UX Designer</p>
+                        <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> New York Office</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="flex-1 py-3 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-blue-600 hover:text-white transition-all">Message</button>
+                        <button class="px-4 py-3 bg-slate-50 text-slate-400 rounded-xl hover:bg-slate-100 transition-all"><i class="fa-solid fa-envelope"></i></button>
+                    </div>
+                </div>
+
+                <div class="employee-card">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="relative">
+                            <img src="https://i.pravatar.cc/150?img=11" class="w-20 h-20 rounded-3xl object-cover grayscale-[0.2]">
+                            <div class="status-indicator status-away"></div>
+                        </div>
+                        <button class="text-slate-300 hover:text-slate-600 transition-colors"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-lg font-black text-slate-800">Alex Rivera</h4>
+                        <p class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-2">Senior Backend Engineer</p>
+                        <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> London Office</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="flex-1 py-3 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-blue-600 hover:text-white transition-all">Message</button>
+                        <button class="px-4 py-3 bg-slate-50 text-slate-400 rounded-xl hover:bg-slate-100 transition-all"><i class="fa-solid fa-envelope"></i></button>
+                    </div>
+                </div>
+
+                <div class="employee-card">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="relative">
+                            <img src="https://i.pravatar.cc/150?img=44" class="w-20 h-20 rounded-3xl object-cover grayscale-[0.2]">
+                            <div class="status-indicator status-online"></div>
+                        </div>
+                        <button class="text-slate-300 hover:text-slate-600 transition-colors"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div class="mb-6">
+                        <h4 class="text-lg font-black text-slate-800">Maria Gonzalez</h4>
+                        <p class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-2">Human Resources Manager</p>
+                        <p class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-location-dot mr-1"></i> Madrid Office</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="flex-1 py-3 bg-blue-50 text-blue-600 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-blue-600 hover:text-white transition-all">Message</button>
+                        <button class="px-4 py-3 bg-slate-50 text-slate-400 rounded-xl hover:bg-slate-100 transition-all"><i class="fa-solid fa-envelope"></i></button>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="mt-12 flex justify-center items-center gap-2">
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-100 text-slate-400 hover:bg-blue-600 hover:text-white transition-all"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-600 text-white font-black text-xs">1</button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-100 text-slate-600 font-bold text-xs hover:bg-slate-50">2</button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-100 text-slate-600 font-bold text-xs hover:bg-slate-50">3</button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-100 text-slate-400 hover:bg-blue-600 hover:text-white transition-all"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
