@@ -255,3 +255,34 @@ For issues or questions, please refer to:
 
 **Current Status:** Phase 1 - Initial Setup Complete ✅
 **Next Release:** Phase 2 - User Authentication & Core Features
+
+.env sample backend
+# Backend Environment Configuration
+# Copy this to .env and update values as needed
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+LOG_LEVEL=debug
+
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=******
+DB_NAME=employee_portal
+
+# JWT Configuration
+JWT_SECRET=my_employee_portal_secret_2026
+JWT_EXPIRE=7d
+
+# API Configuration
+CORS_ORIGIN=http://localhost:5173
+API_VERSION=v1
+
+
+.env sample frontend
+VITE_API_URL=http://localhost:3000/api
+VITE_APP_NAME=CorpLink
+VITE_APP_VERSION=1.0.0
+
