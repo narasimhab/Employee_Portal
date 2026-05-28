@@ -1,0 +1,37 @@
+---
+title: Performance Reviews
+description: Manager-only performance review cycles.
+---
+
+# Performance Reviews
+
+::: warning
+`/performance` is wrapped in `<ProtectedRoute requiredRole="manager">`. Employees navigating here are redirected.
+:::
+
+## Page Capabilities
+
+- Open review cycles list (Q1, Q2, mid-year, annual)
+- Pending reviews for direct reports
+- Score grids with predefined competencies
+- Free-form feedback text + goals for next cycle
+- Submit, save draft, or request peer feedback
+
+## Role Gating
+
+```jsx
+<Route
+  path="performance"
+  element={
+    <ProtectedRoute requiredRole="manager">
+      <Performance />
+    </ProtectedRoute>
+  }
+/>
+```
+
+The backend ALSO checks the role in middleware — never trust the frontend gate alone.
+
+## Source
+
+`frontend/src/pages/Performance.jsx`

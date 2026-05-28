@@ -1,0 +1,62 @@
+---
+title: Demo Credentials
+description: Pre-seeded accounts for testing each role in CorpLink.
+---
+
+# Demo Credentials
+
+The seed scripts create three accounts representing each role.
+
+::: warning
+These accounts are for **local development only**. Never deploy them to production. Rotate `JWT_SECRET` and recreate users before going live.
+:::
+
+## Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Admin** | `john.smith@company.com` | `password123` |
+| **Manager** | `sarah.johnson@company.com` | `password123` |
+| **Employee** | `michael.chen@company.com` | `password123` |
+
+## What Each Role Can Do
+
+### Admin
+- View all users and edit all data
+- Delete records
+- Manage user accounts and roles
+- Access every feature module
+
+### Manager
+- View team members' data
+- Approve leave requests
+- Conduct performance reviews
+- Edit team-level records
+
+### Employee
+- View own profile and data
+- Submit leave requests, timesheets, expenses
+- View announcements, policies, holidays
+- Limited read-only access to most modules
+
+## Login Flow
+
+```mermaid
+sequenceDiagram
+  participant U as User (Browser)
+  participant F as Frontend (React)
+  participant B as Backend (Express)
+  participant D as MySQL
+
+  U->>F: Enter email + password
+  F->>B: POST /api/auth/login
+  B->>D: SELECT user, verify bcrypt hash
+  D-->>B: User row
+  B->>B: Sign JWT (7-day expiry)
+  B->>D: Insert user_sessions row
+  B-->>F: { token, user }
+  F->>F: Store token in localStorage
+  F-->>U: Redirect to /dashboard
+```
+
+See [Authentication API](/api-reference/auth) for endpoint details.

@@ -1,0 +1,17 @@
+{
+  "name": "corplink-vitepress-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VitePress documentation for CorpLink Employee Portal.",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "mermaid": "^11.4.0",
+    "vitepress": "^1.5.0",
+    "vitepress-plugin-mermaid": "^2.0.17"
+  }
+}
