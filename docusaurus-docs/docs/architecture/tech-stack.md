@@ -1,0 +1,71 @@
+---
+sidebar_position: 2
+title: Tech Stack
+description: All the libraries, runtimes, and tools powering CorpLink.
+---
+
+# Tech Stack
+
+## Frontend
+
+| Tool | Purpose |
+|------|---------|
+| **React 18** | Component-based UI library |
+| **Vite** | Dev server and build tool (super-fast HMR) |
+| **Tailwind CSS** | Utility-first styling |
+| **React Router** | Client-side routing |
+| **Axios** | HTTP client for API calls |
+| **React Context** | Global state (auth) via `AuthContext` |
+
+## Backend
+
+| Tool | Purpose |
+|------|---------|
+| **Node.js v18+** | JavaScript runtime |
+| **Express 4** | Web framework / REST router |
+| **mysql2** | MySQL driver with promise + pool support |
+| **jsonwebtoken** | JWT signing and verification |
+| **bcryptjs** | Password hashing |
+| **Joi** | Request body validation |
+| **Winston** | Structured logging |
+| **dotenv** | `.env` loading |
+| **cors** | Cross-origin support for the SPA |
+
+## Database
+
+| Component | Detail |
+|-----------|--------|
+| **MySQL** | Version 8.0+ |
+| **Tables** | 19 (16 domain + 3 auth: `user_sessions`, `roles`, `audit_logs`) |
+| **Sample records** | 50+ across users, departments, projects, leaves, etc. |
+| **Indexes** | 20+ for fast lookups |
+
+## Dev Tools
+
+- **npm** for package management
+- **Nodemon** for backend auto-restart
+- **ESLint** for linting
+- **Docusaurus** for docs (this site!)
+
+## Why This Stack?
+
+<details>
+<summary>Why React + Vite?</summary>
+
+Vite's ESM dev server is dramatically faster than CRA/Webpack. Pair that with React 18's automatic batching and Suspense, and you get a snappy DX.
+
+</details>
+
+<details>
+<summary>Why Tailwind?</summary>
+
+Utility classes mean less context switching to CSS files, easier theming via `tailwind.config.js`, and zero unused CSS in production thanks to PurgeCSS.
+
+</details>
+
+<details>
+<summary>Why JWT + MySQL session log?</summary>
+
+JWTs are stateless and fast. The `user_sessions` table gives us a server-side audit trail and a way to forcibly invalidate tokens (logout, password change).
+
+</details>

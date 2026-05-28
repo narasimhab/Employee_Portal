@@ -1,0 +1,61 @@
+---
+sidebar_position: 2
+title: Employee Directory
+description: Searchable list of all employees, with detail profiles.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Employee Directory
+
+The Directory module gives users a quick way to find colleagues.
+
+## Routes
+
+| Route | Component | Purpose |
+|-------|-----------|---------|
+| `/directory` | `Directory.jsx` | Searchable, filterable list |
+| `/employee/:id` | `EmployeeProfile.jsx` | Individual profile detail |
+
+## Capabilities
+
+- **Search** by name, email, or department
+- **Filter** by role, location, or status
+- **Click-through** to a full profile (`/employee/:id`)
+- Profile shows contact info, manager, projects, certifications, leave balance
+
+## Profile Tabs
+
+<Tabs>
+<TabItem value="overview" label="Overview" default>
+
+Personal info, manager, department, hire date.
+
+</TabItem>
+<TabItem value="projects" label="Projects">
+
+All projects the employee is currently assigned to.
+
+</TabItem>
+<TabItem value="skills" label="Skills & Certifications">
+
+Pulled from the `certifications` table.
+
+</TabItem>
+<TabItem value="leave" label="Leave">
+
+Available balance + history.
+
+</TabItem>
+</Tabs>
+
+## Source Files
+
+- `frontend/src/pages/Directory.jsx`
+- `frontend/src/pages/EmployeeProfile.jsx`
+- `frontend/src/pages/EmployeeProfile2.jsx` (alternate layout)
+
+:::info
+Directory endpoints will be added in **Phase 3** (see [Project Status](/docs/phase-guides/phase-1-setup) for roadmap).
+:::

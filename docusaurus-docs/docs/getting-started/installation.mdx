@@ -1,0 +1,130 @@
+---
+sidebar_position: 1
+title: Installation
+description: Set up the CorpLink frontend, backend, and database on your machine.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Installation
+
+This guide walks you through installing every component of CorpLink locally.
+
+## Prerequisites
+
+- ✅ Node.js **v18 or higher**
+- ✅ MySQL **8.0+**
+- ✅ npm (or yarn)
+- ✅ Git
+
+## 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd Employee_Portal
+```
+
+## 2. Install Dependencies
+
+<Tabs>
+<TabItem value="frontend" label="Frontend" default>
+
+```bash
+cd frontend
+npm install
+```
+
+</TabItem>
+<TabItem value="backend" label="Backend">
+
+```bash
+cd backend
+npm install
+```
+
+</TabItem>
+</Tabs>
+
+## 3. Configure Environment Variables
+
+<Tabs>
+<TabItem value="backend-env" label="Backend (.env)" default>
+
+```bash
+PORT=3000
+NODE_ENV=development
+LOG_LEVEL=debug
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=employee_portal
+
+JWT_SECRET=my_employee_portal_secret_2026
+JWT_EXPIRE=7d
+
+CORS_ORIGIN=http://localhost:5173
+API_VERSION=v1
+```
+
+</TabItem>
+<TabItem value="frontend-env" label="Frontend (.env)">
+
+```bash
+VITE_API_URL=http://localhost:3000/api
+VITE_APP_NAME=CorpLink
+VITE_APP_VERSION=1.0.0
+```
+
+</TabItem>
+</Tabs>
+
+See [Environment Variables](/docs/development/environment-variables) for the complete reference.
+
+## 4. Set Up the Database
+
+```bash
+mysql -u root -p < database/schema.sql
+mysql -u root -p employee_portal < database/auth_schema_update.sql
+mysql -u root -p employee_portal < database/seed.sql
+mysql -u root -p employee_portal < database/auth_seed_update.sql
+```
+
+:::tip
+This loads 16 base tables, 3 auth tables, sample users, departments, projects, and demo credentials.
+:::
+
+## 5. Verify Installation
+
+Start both servers and visit the URLs below.
+
+<Tabs>
+<TabItem value="fe" label="Frontend" default>
+
+```bash
+cd frontend && npm run dev
+# http://localhost:5173
+```
+
+</TabItem>
+<TabItem value="be" label="Backend">
+
+```bash
+cd backend && npm run dev
+# http://localhost:3000
+```
+
+</TabItem>
+</Tabs>
+
+Visit [http://localhost:3000/api/health](http://localhost:3000/api/health) — you should see:
+
+```json
+{ "success": true, "message": "API is running" }
+```
+
+:::info You're done!
+Head to the [Quickstart](/docs/getting-started/quickstart) to log in.
+:::

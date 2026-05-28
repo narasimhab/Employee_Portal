@@ -1,0 +1,49 @@
+---
+sidebar_position: 8
+title: Projects
+description: Active projects, members, and timelines.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Projects
+
+`Projects.jsx` lists all projects the user is involved with.
+
+## Fields per Project
+
+| Field | Example |
+|-------|---------|
+| `id` | `PRJ-005` |
+| `name` | CorpLink v2 |
+| `description` | Internal employee portal |
+| `manager_id` | 7 |
+| `members` | `[1, 4, 8, 12]` |
+| `start_date` | 2026-01-15 |
+| `end_date` | 2026-12-31 |
+| `status` | Active / On Hold / Completed |
+
+## Views
+
+<Tabs>
+<TabItem value="card" label="Card View" default>
+
+Grid of project cards with progress, owner, and member avatars.
+
+</TabItem>
+<TabItem value="list" label="List View">
+
+Sortable table with name, status, dates, member count.
+
+</TabItem>
+<TabItem value="timeline" label="Timeline">
+
+Gantt-style timeline for active projects.
+
+</TabItem>
+</Tabs>
+
+## Source
+
+`frontend/src/pages/Projects.jsx`

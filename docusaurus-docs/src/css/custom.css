@@ -1,0 +1,27 @@
+/**
+ * Brand colors — kept in sync with the Mintlify and VitePress sites.
+ * Primary: #0D9373 (light: #E6F4F1, dark: #0A6B56)
+ */
+
+:root {
+  --ifm-color-primary: #0d9373;
+  --ifm-color-primary-dark: #0a6b56;
+  --ifm-color-primary-darker: #096348;
+  --ifm-color-primary-darkest: #074d39;
+  --ifm-color-primary-light: #10b18a;
+  --ifm-color-primary-lighter: #14c79b;
+  --ifm-color-primary-lightest: #e6f4f1;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #14c79b;
+  --ifm-color-primary-dark: #10b18a;
+  --ifm-color-primary-darker: #0d9373;
+  --ifm-color-primary-darkest: #0a6b56;
+  --ifm-color-primary-light: #38d6b0;
+  --ifm-color-primary-lighter: #5cdfba;
+  --ifm-color-primary-lightest: #b6f0dc;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
+}
