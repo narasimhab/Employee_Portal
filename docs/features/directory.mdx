@@ -1,0 +1,47 @@
+---
+title: "Employee Directory"
+description: "Searchable list of all employees, with detail profiles."
+---
+
+The Directory module gives users a quick way to find colleagues.
+
+## Routes
+
+| Route | Component | Purpose |
+|-------|-----------|---------|
+| `/directory` | `Directory.jsx` | Searchable, filterable list |
+| `/employee/:id` | `EmployeeProfile.jsx` | Individual profile detail |
+
+## Capabilities
+
+- **Search** by name, email, or department
+- **Filter** by role, location, or status
+- **Click-through** to a full profile (`/employee/:id`)
+- Profile shows contact info, manager, projects, certifications, leave balance
+
+## Profile Tabs
+
+<Tabs>
+  <Tab title="Overview">
+    Personal info, manager, department, hire date.
+  </Tab>
+  <Tab title="Projects">
+    All projects the employee is currently assigned to.
+  </Tab>
+  <Tab title="Skills & Certifications">
+    Pulled from the `certifications` table.
+  </Tab>
+  <Tab title="Leave">
+    Available balance + history.
+  </Tab>
+</Tabs>
+
+## Source Files
+
+- `frontend/src/pages/Directory.jsx`
+- `frontend/src/pages/EmployeeProfile.jsx`
+- `frontend/src/pages/EmployeeProfile2.jsx` (alternate layout)
+
+<Note>
+  Directory endpoints will be added in **Phase 3** (see [Project Status](/phase-guides/phase-1-setup) for roadmap).
+</Note>

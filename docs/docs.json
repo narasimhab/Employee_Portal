@@ -1,0 +1,100 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "CorpLink — Employee Portal",
+  "theme": "mint",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#E6F4F1",
+    "dark": "#0A6B56"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "index",
+              "getting-started/installation",
+              "getting-started/quickstart",
+              "getting-started/demo-credentials"
+            ]
+          },
+          {
+            "group": "Architecture",
+            "pages": [
+              "architecture/overview",
+              "architecture/tech-stack",
+              "architecture/project-structure"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/dashboard",
+              "features/directory",
+              "features/announcements",
+              "features/assets",
+              "features/leave",
+              "features/timesheet",
+              "features/performance",
+              "features/projects"
+            ]
+          },
+          {
+            "group": "Development",
+            "pages": [
+              "development/environment-variables",
+              "development/database",
+              "development/roles-and-permissions"
+            ]
+          },
+          {
+            "group": "Phase Guides",
+            "pages": [
+              "phase-guides/phase-1-setup",
+              "phase-guides/phase-2-authentication"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["api-reference/introduction"]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api-reference/health",
+              "api-reference/auth",
+              "api-reference/dashboard"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get Started",
+      "href": "/getting-started/installation"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/"
+    }
+  }
+}

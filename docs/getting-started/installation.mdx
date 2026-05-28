@@ -1,0 +1,106 @@
+---
+title: "Installation"
+description: "Set up the CorpLink frontend, backend, and database on your machine."
+---
+
+This guide walks you through installing every component of CorpLink locally.
+
+## Prerequisites
+
+<Check>Node.js **v18 or higher**</Check>
+<Check>MySQL **8.0+**</Check>
+<Check>npm (or yarn)</Check>
+<Check>Git</Check>
+
+## 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd Employee_Portal
+```
+
+## 2. Install Dependencies
+
+<CodeGroup>
+```bash Frontend
+cd frontend
+npm install
+```
+
+```bash Backend
+cd backend
+npm install
+```
+</CodeGroup>
+
+## 3. Configure Environment Variables
+
+<Steps>
+  <Step title="Backend .env">
+    Create `backend/.env`:
+
+    ```bash
+    PORT=3000
+    NODE_ENV=development
+    LOG_LEVEL=debug
+
+    DB_HOST=localhost
+    DB_PORT=3306
+    DB_USER=root
+    DB_PASSWORD=your_password
+    DB_NAME=employee_portal
+
+    JWT_SECRET=my_employee_portal_secret_2026
+    JWT_EXPIRE=7d
+
+    CORS_ORIGIN=http://localhost:5173
+    API_VERSION=v1
+    ```
+  </Step>
+  <Step title="Frontend .env">
+    Create `frontend/.env`:
+
+    ```bash
+    VITE_API_URL=http://localhost:3000/api
+    VITE_APP_NAME=CorpLink
+    VITE_APP_VERSION=1.0.0
+    ```
+  </Step>
+</Steps>
+
+See [Environment Variables](/development/environment-variables) for a complete reference.
+
+## 4. Set Up the Database
+
+```bash
+mysql -u root -p < database/schema.sql
+mysql -u root -p employee_portal < database/auth_schema_update.sql
+mysql -u root -p employee_portal < database/seed.sql
+mysql -u root -p employee_portal < database/auth_seed_update.sql
+```
+
+<Tip>This loads 16 base tables, 3 auth tables, sample users, departments, projects, and demo credentials.</Tip>
+
+## 5. Verify Installation
+
+Start both servers and visit the URLs below.
+
+<CodeGroup>
+```bash Frontend
+cd frontend && npm run dev
+# http://localhost:5173
+```
+
+```bash Backend
+cd backend && npm run dev
+# http://localhost:3000
+```
+</CodeGroup>
+
+Visit [http://localhost:3000/api/health](http://localhost:3000/api/health) — you should see:
+
+```json
+{ "success": true, "message": "API is running" }
+```
+
+<Check>You're done! Head to the [Quickstart](/getting-started/quickstart) to log in.</Check>

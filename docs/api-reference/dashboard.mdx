@@ -1,0 +1,92 @@
+---
+title: "Dashboard API"
+description: "Stats and announcements endpoints used by the dashboard page."
+---
+
+All routes under `/api/dashboard` require a valid JWT. Source: `backend/src/routes/dashboard.js`.
+
+---
+
+## GET /api/dashboard/stats
+
+Return aggregate counts for the dashboard widgets.
+
+### Request
+
+```bash
+curl http://localhost:3000/api/dashboard/stats \
+  -H "Authorization: Bearer <token>"
+```
+
+### Response
+
+```json 200 OK
+{
+  "success": true,
+  "data": {
+    "totalEmployees": 10,
+    "activeProjects": 5,
+    "pendingLeaves": 2,
+    "upcomingHolidays": 3
+  }
+}
+```
+
+<ResponseField name="totalEmployees" type="number" />
+<ResponseField name="activeProjects" type="number" />
+<ResponseField name="pendingLeaves" type="number">
+  Visible only to managers and admins; employees see their own pending count.
+</ResponseField>
+<ResponseField name="upcomingHolidays" type="number">
+  Holidays in the next 30 days.
+</ResponseField>
+
+---
+
+## GET /api/dashboard/announcements
+
+Return the latest announcements, newest first.
+
+### Request
+
+```bash
+curl http://localhost:3000/api/dashboard/announcements \
+  -H "Authorization: Bearer <token>"
+```
+
+### Query Parameters
+
+<ParamField query="limit" type="number" default="10">
+  Maximum number of announcements to return.
+</ParamField>
+<ParamField query="category" type="string">
+  Filter by category (e.g. `HR`, `IT`, `General`).
+</ParamField>
+
+### Response
+
+```json 200 OK
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "Quarterly All-Hands",
+      "body": "Join us Friday at 3 PM in the main auditorium...",
+      "category": "General",
+      "created_at": "2026-05-20T10:00:00Z",
+      "created_by": {
+        "id": 4,
+        "name": "Sarah Johnson"
+      }
+    }
+  ]
+}
+```
+
+### Errors
+
+| Status | Reason |
+|--------|--------|
+| 401 | Missing or invalid JWT |
+| 500 | Database error (check logs) |

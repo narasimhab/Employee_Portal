@@ -1,0 +1,44 @@
+---
+title: "Dashboard"
+description: "Home page with stats, recent activity, and announcements."
+---
+
+The dashboard is the landing page after login (`/`). It surfaces the most important information for the logged-in user.
+
+## What's on the Dashboard
+
+<CardGroup cols={2}>
+  <Card title="User Stats" icon="chart-line">
+    Total employees, active projects, pending leaves, upcoming holidays.
+  </Card>
+  <Card title="Recent Announcements" icon="bullhorn">
+    Latest company-wide announcements with timestamps.
+  </Card>
+  <Card title="Quick Actions" icon="bolt">
+    Shortcuts to submit leave, log timesheet, view profile.
+  </Card>
+  <Card title="My Tasks" icon="list-check">
+    Items needing user attention (pending approvals for managers).
+  </Card>
+</CardGroup>
+
+## Data Sources
+
+The dashboard hits two endpoints on mount:
+
+```js
+GET /api/dashboard/stats
+GET /api/dashboard/announcements
+```
+
+Both require a valid JWT in the `Authorization: Bearer <token>` header.
+
+See the [Dashboard API](/api-reference/dashboard) reference.
+
+## Source
+
+```9:9:frontend/src/pages/Dashboard.jsx
+// Dashboard.jsx — top-level dashboard page (≈14 KB)
+```
+
+The page lives at `frontend/src/pages/Dashboard.jsx` and is rendered as the index route inside the protected `Layout`.

@@ -1,0 +1,67 @@
+---
+title: "Quickstart"
+description: "Run CorpLink locally and log in with demo credentials in under 2 minutes."
+---
+
+After completing [Installation](/getting-started/installation), follow these steps to launch the app.
+
+## Start the Servers
+
+<Steps>
+  <Step title="Start the backend">
+    ```bash
+    cd backend
+    npm run dev
+    ```
+    Server starts on **http://localhost:3000**.
+  </Step>
+  <Step title="Start the frontend">
+    Open a new terminal:
+    ```bash
+    cd frontend
+    npm run dev
+    ```
+    UI opens on **http://localhost:5173**.
+  </Step>
+  <Step title="Log in">
+    Navigate to [http://localhost:5173/login](http://localhost:5173/login) and use one of the [demo accounts](/getting-started/demo-credentials).
+  </Step>
+</Steps>
+
+## Verify Everything Works
+
+<AccordionGroup>
+  <Accordion title="Health check passes" icon="heart-pulse">
+    ```bash
+    curl http://localhost:3000/api/health
+    ```
+    Returns `{ "success": true, "message": "API is running" }`
+  </Accordion>
+  <Accordion title="Login returns a token" icon="key">
+    ```bash
+    curl -X POST http://localhost:3000/api/auth/login \
+      -H "Content-Type: application/json" \
+      -d '{"email":"john.smith@company.com","password":"password123"}'
+    ```
+  </Accordion>
+  <Accordion title="Dashboard loads with data" icon="chart-line">
+    After login, the dashboard should display user stats, recent announcements, and project counts.
+  </Accordion>
+</AccordionGroup>
+
+## What's Next?
+
+<CardGroup cols={2}>
+  <Card title="Explore Features" icon="layer-group" href="/features/dashboard">
+    Tour each feature module.
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/introduction">
+    Hit the backend with curl or Postman.
+  </Card>
+  <Card title="Architecture" icon="diagram-project" href="/architecture/overview">
+    Understand how the pieces fit.
+  </Card>
+  <Card title="Roles" icon="user-shield" href="/development/roles-and-permissions">
+    Admin vs Manager vs Employee access.
+  </Card>
+</CardGroup>

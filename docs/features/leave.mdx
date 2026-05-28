@@ -1,0 +1,44 @@
+---
+title: "Leave Management"
+description: "Request, track, and approve time off."
+---
+
+The `Leave.jsx` page handles paid/unpaid leave requests with a manager approval workflow.
+
+## Workflow
+
+```mermaid
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Submitted: Employee submits
+  Submitted --> Approved: Manager approves
+  Submitted --> Rejected: Manager rejects
+  Approved --> [*]
+  Rejected --> [*]
+```
+
+## Leave Types
+
+- **Casual Leave (CL)**
+- **Sick Leave (SL)**
+- **Earned / Vacation Leave (EL)**
+- **Compensatory Off (COff)**
+- **Unpaid Leave**
+
+## Permissions
+
+| Action | Employee | Manager | Admin |
+|--------|----------|---------|-------|
+| Submit own request | ✅ | ✅ | ✅ |
+| View own leave balance | ✅ | ✅ | ✅ |
+| View team requests | ❌ | ✅ | ✅ |
+| Approve / Reject | ❌ | ✅ | ✅ |
+| Edit leave policy | ❌ | ❌ | ✅ |
+
+## Source
+
+`frontend/src/pages/Leave.jsx`
+
+<Note>
+  Approval endpoints arrive in **Phase 3**. UI currently uses mock data plumbed through `services/`.
+</Note>
